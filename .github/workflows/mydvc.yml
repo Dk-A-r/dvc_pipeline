@@ -54,6 +54,8 @@ jobs:
           dvc remote list
           dvc pull -v --force -r yandexs3
           echo "Pull completed"
+          echo "The folder structure is this:\n"
+          tree
 
 
 
