@@ -53,7 +53,7 @@ jobs:
           dvc remote modify yandexs3 --local secret_access_key {{secrets.YANDEX_SECRET_ACCESS_KEY}}
           dvc remote modify yandexs3 --local region ru-central1
           dvc remote list
-          dvc pull -v --force -r yandexs3
+          dvc pull -r yandexs3
           echo "Pull completed"
           echo "DVC ignores: "
           cat .dvcignore
