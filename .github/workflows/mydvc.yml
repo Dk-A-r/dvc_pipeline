@@ -62,6 +62,7 @@ jobs:
           dvc checkout
           echo "The folder structure after checkout is this:"
           tree -a
+          dvc doctor
 
 
 
