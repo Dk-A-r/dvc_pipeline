@@ -55,6 +55,8 @@ jobs:
           dvc remote list
           dvc pull -v --force -r yandexs3
           echo "Pull completed"
+          echo "DVC ignores: "
+          cat .dvcignore
           echo "The folder structure is this:"
           tree -a
           dvc checkout
