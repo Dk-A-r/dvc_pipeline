@@ -53,6 +53,7 @@ jobs:
           dvc remote modify yandexs3 --local region ru-central1
           dvc remote list
           dvc pull -v --force -r yandexs3
+          echo "Pull completed"
 
 
 
