@@ -25,7 +25,8 @@ jobs:
         run: |
           git init
           dvc init -f
-      - name: Configure AWS credentials
+          git config --global user.email "dkarpov.legal@gmail.com"
+          git config --global user.name "dkarpov.legal"
         run: |
           export AWS_ACCESS_KEY_ID=${{ secrets.YANDEX_ACCESS_KEY_ID }}
           export AWS_SECRET_ACCESS_KEY=${{ secrets.YANDEX_SECRET_ACCESS_KEY }}
