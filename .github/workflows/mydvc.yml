@@ -17,20 +17,12 @@ jobs:
           #. ./bin/activate
           pip install --upgrade setuptools wheel
           pip install -r requirements.txt
-          #curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-          #unzip awscliv2.zip
-          #sudo ./aws/install
           pip uninstall -y boto3
           pip install boto3==1.35.*
           pip list | grep boto3
           aws --version
       - name: Initialization
         run: |
-          #cd venv
-          #echo 'Now you will see dvc path'
-          #which dvc || echo "DVC not found in PATH"
-          #python -m site
-          #pwd
           git init
           dvc init -f
       - name: Configure AWS credentials
@@ -40,29 +32,17 @@ jobs:
           export AWS_DEFAULT_REGION="ru-central1"
       - name: DVC remote configuration
         run: |
-          #aws configure set aws_access_key_id {{secrets.YANDEX_ACCESS_KEY_ID}}
-          #aws configure set aws_secret_access_key {{secrets.YANDEX_SECRET_ACCESS_KEY}}
-          #aws configure set region ru-central1
-          #aws configure set endpoint_url https://storage.yandexcloud.net
-          #aws s3 mb s3://mynewbucket --debug --region ru-central1 --endpoint-url https://storage.yandexcloud.net
-          #aws s3 ls s3://mynewbucket
           mkdir -p data code
+
           dvc remote add yandexs3 s3://mynewbucket
           dvc remote modify yandexs3 endpointurl https://storage.yandexcloud.net
           dvc remote modify yandexs3 --local access_key_id {{secrets.YANDEX_ACCESS_KEY_ID}}
           dvc remote modify yandexs3 --local secret_access_key {{secrets.YANDEX_SECRET_ACCESS_KEY}}
           dvc remote modify yandexs3 --local region ru-central1
           dvc remote list
-          dvc pull -r yandexs3
-          echo "Pull completed"
-          echo "DVC ignores: "
-          cat .dvcignore
-          echo "The folder structure is this:"
-          tree -a
-          dvc checkout
-          echo "The folder structure after checkout is this:"
-          tree -a
-          dvc doctor
+          dvc import-url https://pjreddie.com/media/files/mnist_train.csv data/train_data.csv
+          dvc import-url https://pjreddie.com/media/files/mnist_test.csv data/test_data.csv
+          git status -s
 
 
 
