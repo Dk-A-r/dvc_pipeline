@@ -43,6 +43,13 @@ jobs:
           dvc import-url https://pjreddie.com/media/files/mnist_train.csv data/train_data.csv
           dvc import-url https://pjreddie.com/media/files/mnist_test.csv data/test_data.csv
           git status -s
+          cat data/.gitignore
+          git status -s data/*
+          cat data/.gitignore
+          git add .
+          git commit -m 'Adding files for DVC'
+          dvc add data/test_data.csv
+          dvc add data/train_data.csv
 
 
 
