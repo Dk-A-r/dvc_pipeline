@@ -52,7 +52,7 @@ jobs:
           git commit -m 'Adding files for DVC'
           dvc add data/test_data.csv
           dvc add data/train_data.csv
-          dvc stage add -n featurization -d data/train_data.csv -d data/test_data.csv -d code/featurization.py -o data/norm_params.json -o data/processed_train_data.npy -o data/processed_test_data.npy \ python3 code/featurization.py
+          dvc stage add -n featurization -d data/train_data.csv -d data/test_data.csv -d code/featurization.py -o data/norm_params.json -o data/processed_train_data.npy -o data/processed_test_data.npy python code/featurization.py
           dvc repro
           git status -s
           git add .
