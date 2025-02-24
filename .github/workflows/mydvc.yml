@@ -22,6 +22,7 @@ jobs:
           pip list | grep boto
           aws --version
           cd ..
+          dvc init
       - name: Initialization
         run: |
           git init
