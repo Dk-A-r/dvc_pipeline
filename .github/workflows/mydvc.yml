@@ -27,20 +27,13 @@ jobs:
           dvc init -f
           git config --global user.email "dkarpov.legal@gmail.com"
           git config --global user.name "dkarpov.legal"
-      - name: Set credentials  
-        run: |
-          export AWS_ACCESS_KEY_ID=${{ secrets.YANDEX_ACCESS_KEY_ID }}
-          export AWS_SECRET_ACCESS_KEY=${{ secrets.YANDEX_SECRET_ACCESS_KEY }}
-          export AWS_DEFAULT_REGION="ru-central1"
       - name: DVC remote configuration
         run: |
           mkdir -p data code
-
-          dvc remote add yandexs3 s3://mynewbucket
-          dvc remote modify yandexs3 endpointurl https://storage.yandexcloud.net
-          dvc remote modify yandexs3 --local access_key_id {{secrets.YANDEX_ACCESS_KEY_ID}}
-          dvc remote modify yandexs3 --local secret_access_key {{secrets.YANDEX_SECRET_ACCESS_KEY}}
-          dvc remote modify yandexs3 --local region ru-central1
+          dvc remote add origin s3://dvc
+          dvc remote modify origin endpointurl https://dagshub.com/dkarpov.legal/dagshub_mnist.s3
+          dvc remote modify origin --local access_key_id {{secrets.DAGSHUB_ACCESS_KEY_ID}}
+          dvc remote modify origin --local secret_access_key {{secrets.DAGSHUB_SECRET_ACCESS_KEY}}
           dvc remote list
           dvc import-url https://pjreddie.com/media/files/mnist_train.csv data/train_data.csv
           dvc import-url https://pjreddie.com/media/files/mnist_test.csv data/test_data.csv
@@ -57,7 +50,7 @@ jobs:
           git status -s
           git add .
           git commit -m 'Preprocessing in DVC'
-          dvc push -r yandexs3
+          dvc push -r origin
 
 
 
